@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Web Moderna | Herramientas Útiles</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-rocket"></i>
+                <span>ModernApp</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Inicio</a></li>
+                <li><a href="#tools" class="nav-link">Herramientas</a></li>
+                <li><a href="#about" class="nav-link">Acerca</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Herramientas Web Modernas</h1>
+            <p class="hero-subtitle">Calculadora, conversor de unidades y más utilidades en una sola aplicación</p>
+            <button class="cta-button" onclick="scrollToTools()">Explorar Herramientas</button>
+        </div>
+        <div class="hero-bg"></div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools" class="tools-section">
+        <div class="container">
+            <h2 class="section-title">🛠️ Herramientas Disponibles</h2>
+            
+            <!-- Tool Tabs -->
+            <div class="tool-tabs">
+                <button class="tab-button active" data-tool="calculator">📱 Calculadora</button>
+                <button class="tab-button" data-tool="converter">🔄 Conversor</button>
+                <button class="tab-button" data-tool="weather">🌤️ Clima</button>
+                <button class="tab-button" data-tool="qr">📱 QR Generator</button>
+            </div>
+
+            <!-- Calculator Tool -->
+            <div id="calculator" class="tool-content active">
+                <div class="calculator">
+                    <div class="calc-display">
+                        <input type="text" id="calc-input" readonly placeholder="0">
+                    </div>
+                    <div class="calc-buttons">
+                        <button class="calc-btn clear" onclick="clearCalc()">C</button>
+                        <button class="calc-btn" onclick="deleteLast()">⌫</button>
+                        <button class="calc-btn" onclick="appendCalc('/')">/</button>
+                        <button class="calc-btn" onclick="appendCalc('*')">×</button>
+                        
+                        <button class="calc-btn" onclick="appendCalc('7')">7</button>
+                        <button class="calc-btn" onclick="appendCalc('8')">8</button>
+                        <button class="calc-btn" onclick="appendCalc('9')">9</button>
+                        <button class="calc-btn" onclick="appendCalc('-')">-</button>
+                        
+                        <button class="calc-btn" onclick="appendCalc('4')">4</button>
+                        <button class="calc-btn" onclick="appendCalc('5')">5</button>
+                        <button class="calc-btn" onclick="appendCalc('6')">6</button>
+                        <button class="calc-btn" onclick="appendCalc('+')">+</button>
+                        
+                        <button class="calc-btn" onclick="appendCalc('1')">1</button>
+                        <button class="calc-btn" onclick="appendCalc('2')">2</button>
+                        <button class="calc-btn" onclick="appendCalc('3')">3</button>
+                        <button class="calc-btn equals" onclick="calculateResult()" rowspan="2">=</button>
+                        
+                        <button class="calc-btn zero" onclick="appendCalc('0')">0</button>
+                        <button class="calc-btn" onclick="appendCalc('.')">.</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Converter Tool -->
+            <div id="converter" class="tool-content">
+                <div class="converter">
+                    <h3>🔄 Conversor de Unidades</h3>
+                    <div class="converter-section">
+                        <label>Tipo de Conversión:</label>
+                        <select id="conversion-type" onchange="updateConverter()">
+                            <option value="length">Longitud</option>
+                            <option value="weight">Peso</option>
+                            <option value="temperature">Temperatura</option>
+                            <option value="currency">Moneda</option>
+                        </select>
+                    </div>
+                    <div class="conversion-inputs">
+                        <div class="input-group">
+                            <label>De:</label>
+                            <select id="from-unit"></select>
+                            <input type="number" id="from-value" placeholder="Ingresa valor" oninput="convert()">
+                        </div>
+                        <div class="swap-button" onclick="swapUnits()">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="input-group">
+                            <label>A:</label>
+                            <select id="to-unit"></select>
+                            <input type="number" id="to-value" readonly placeholder="Resultado">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weather Tool -->
+            <div id="weather" class="tool-content">
+                <div class="weather">
+                    <h3>🌤️ Consulta del Clima</h3>
+                    <div class="weather-input">
+                        <input type="text" id="city-input" placeholder="Ingresa tu ciudad...">
+                        <button onclick="getWeather()">Consultar</button>
+                    </div>
+                    <div id="weather-result" class="weather-result">
+                        <p>Ingresa una ciudad para ver el clima actual</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QR Generator -->
+            <div id="qr" class="tool-content">
+                <div class="qr-generator">
+                    <h3>📱 Generador de Códigos QR</h3>
+                    <div class="qr-input">
+                        <textarea id="qr-text" placeholder="Ingresa texto, URL o cualquier información..."></textarea>
+                        <button onclick="generateQR()">Generar QR</button>
+                    </div>
+                    <div id="qr-result" class="qr-result">
+                        <canvas id="qr-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">✨ Acerca de Esta App</h2>
+            <div class="about-content">
+                <div class="about-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Rápida y Eficiente</h3>
+                    <p>Herramientas optimizadas para uso diario con interfaz intuitiva</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Responsive</h3>
+                    <p>Funciona perfectamente en dispositivos móviles, tablets y desktop</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Código Abierto</h3>
+                    <p>Construida con tecnologías web modernas y disponible en GitHub</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>ModernApp</span>
+                </div>
+                <p>Creada con ❤️ usando Composio & GitHub Pages</p>
+                <div class="social-links">
+                    <a href="https://github.com/Bakudex03342/modern-web-app" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
